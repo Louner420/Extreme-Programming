@@ -6,6 +6,7 @@ anzahl = 1
 kategorie = 0
 schwierigkeit = ""
 typ = ""
+Antworten=[]
 
 Highscore = 0
 def getAmount():
@@ -88,19 +89,26 @@ def getQuestions():
     api_url = f"https://opentdb.com/api.php?amount={anzahl}&category={kategorie}&difficulty={schwierigkeit}&type={typ}"
     response = req.get(api_url)
     if response.status_code == 200:
+
         data = response.json()
         for i in range(anzahl):
+            for j in range(3):
+                Antworten.append(data['results'][i]['incorrect_answers'][j])
+            Antworten.append(data['results'][i]['correct_answer'])
+            rand.shuffle(Antworten)
             print(f"Frage {i+1}: {data['results'][i]['question']}")
-            print(f"Antwortmöglichkeiten: {data['results'][i]['incorrect_answers'] + [data['results'][i]['correct_answer']]}")
+            print(f"Antwortmöglichkeiten: {Antworten}")
             try:
                 antwort = input("Antwort: ")
                 if antwort == data['results'][i]['correct_answer']:
                     print("Korrekt")
                     score += 1
+                    Antworten.clear()
 
                 else:
                     print("Falsch")
                     score = 0
+                    Antworten.clear()
             except ValueError:
                 print("Gib mir eine Antwort")
 
