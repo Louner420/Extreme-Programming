@@ -65,6 +65,7 @@ def getDifficulty():
 
 def getType():
     global typ
+    global kategorieint
     try:
         print("Typ:\n"
               "1: Multiple Choice\n"
@@ -75,8 +76,10 @@ def getType():
         match typ:
             case 1:
                 typ = "multiple"
+                kategorieint=3
             case 2:
                 typ = "boolean"
+                kategorieint=1
             case _:
                 print("Das steht leider nicht zu Auswahl")
 
@@ -89,34 +92,63 @@ def getQuestions():
     api_url = f"https://opentdb.com/api.php?amount={anzahl}&category={kategorie}&difficulty={schwierigkeit}&type={typ}"
     response = req.get(api_url)
     if response.status_code == 200:
-
         data = response.json()
         for i in range(anzahl):
-            for j in range(3):
-                Antworten.append(data['results'][i]['incorrect_answers'][j])
-            Antworten.append(data['results'][i]['correct_answer'])
-            rand.shuffle(Antworten)
-            print(f"Frage {i+1}: {data['results'][i]['question']}")
-            print(f"Antwortmöglichkeiten: {Antworten}")
-            try:
-                antwort = input("Antwort: ")
-                if antwort == data['results'][i]['correct_answer']:
-                    print("Korrekt")
-                    score += 1
-                    Antworten.clear()
+            if kategorieint==3:
+                for j in range(kategorieint):
+                    Antworten.append(data['results'][i]['incorrect_answers'][j])
+                Antworten.append(data['results'][i]['correct_answer'])
+                rand.shuffle(Antworten)
+                print(f"Frage {i+1}: {data['results'][i]['question']}")
+                print(f"Antwortmöglichkeiten: {Antworten}")
 
-                else:
-                    print("Falsch")
-                    score = 0
-                    Antworten.clear()
-            except ValueError:
-                print("Gib mir eine Antwort")
+                antwort = input("Antwort 1-4 geht auch: ")
+                try:
+                    antwort = int(antwort)-1
+                    if Antworten[antwort] == data['results'][i]['correct_answer']:
+                        print("Korrekt")
+                        score += 1
+                    else:
+                        print("Falsch")
+                        score = 0
+                except TypeError:
+                    if antwort == data['results'][i]['correct_answer']:
+                        print("Korrekt")
+                        score += 1
+                    else:
+                        print("Falsch")
+                        score = 0
+                Antworten.clear()
+                if score > Highscore:
+                    Highscore = score
 
-            if score > Highscore:
-                Highscore = score
+                print(f"Korrekte Antwort: {data['results'][i]['correct_answer']}")
+            else:
+                Antworten=["True","False"]
+                print(f"Frage {i+1}: {data['results'][i]['question']}")
+                print(f"Antwortmöglichkeiten: {Antworten}")
+            
+                antwort = input("Antwort 1 oder 2 geht auch: ")
+                try:
+                    antwort = int(antwort)-1
+                    if Antworten[antwort] == data['results'][i]['correct_answer']:
+                        print("Korrekt")
+                        score += 1
+                    else:
+                        print("Falsch")
+                        score = 0
+                except TypeError:
+                    if antwort == data['results'][i]['correct_answer']:
+                        print("Korrekt")
+                        score += 1
+                    else:
+                        print("Falsch")
+                        score = 0
+                Antworten.clear()
+                if score > Highscore:
+                    Highscore = score
 
-            print(f"Korrekte Antwort: {data['results'][i]['correct_answer']}")
-            #print(f"Falsche Antworten: {data['results'][i]['incorrect_answers']}")
+                print(f"Korrekte Antwort: {data['results'][i]['correct_answer']}")
     else:
         print("Problem mit der API-Abfrage")
 
