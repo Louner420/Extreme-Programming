@@ -1,0 +1,23 @@
+Github Link: https://github.com/Louner420/Extreme-Programming
+
+generell Labor Refexion:
+    Linux basics waren eine gute Widerhelung und vorallem wichtig für den ein oder anderen, da Linux bei manchen Diplomarbeiten zum Einsatz kommt
+    ORM Mapping ist echt arsch. Gefällt uns garnicht. Es war zwar on der Aufgabenstellung schlüssig aber es hat nicht unser Vorstellung entsprochen
+    GIT ist immer cool
+    UNIT Testing war cool, da es auch für uns Anwendung beim Programmieren finden kann. Die Aufgabenstellung hat auch genug freiraum zum selber rumspielen gegeben
+    X-Treme Programming wird exrta besprochen
+
+X-treme Programming Refexion:
+Postives:
+    jeder hat andere Lösung -> verschiedene Lösungansätze, so lässt sich schneller eine besser funktionierende Lösung finden
+    man erkennt leichter Probleme
+
+Negatives:
+    zwei Leute könnten getrennt Coden und somit schneller einen gesamt Code haben -> heißt ja nicht, dass man nicht nach keiner Meinung fragen darf
+    Uneinigkeiten
+    Aufgabenaufteilung nicht Möglich
+    jeder hat seinen Eigenen Programmier Styl, welcher nicht mit dem anderen Übereinstimmt
+
+
+
+Verfasst von Maximilian Meil und Dominik Fiegl (Tizian Wackerle war teilweise dabei)
